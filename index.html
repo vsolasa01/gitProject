@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Git User search</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="script.js"></script>
+    <script src="mainController.js"></script>
+    <script src="gitService.js"></script>
+    <script src="gitRepoService.js"></script>
+</head>
+<body ng-app="myApp" >
+
+<div ng-controller="myController">
+    <!--searchSection block-->
+    <div id="searchSection" class="profile">
+        <img src="http://i.imgur.com/VKKm0pn.png" alt="Magnifying Glass" id="searchIcon">
+
+        <div>
+            <!--Username Input-->
+            <input type="text" ng-model="username" id="username" placeholder="Enter the Username">
+
+            <!--Button to search username-->
+            <input type="button" class="button" ng-click="searchGit()" value="Search">
+        </div>
+    </div>
+
+    <!--resultSection block-->
+    <div id="resultSection" >
+
+        <!--User information-->
+        <div class="profile" ng-hide="displayProfile ">
+
+            <!--User information-->
+            <img ng-src="{{details.avatar_url}}" alt="Image is not available" id="avatar">
+            <p>Username: {{details.login}}</p>
+            <p>E-Mail: {{details.email}}</p>
+            <p>Location: {{details.location}}</p>
+            <p>Company Name: {{details.company}}</p>
+
+            <!--Repository information button-->
+            <input type="button" class="button" value="Repositories information" ng-click="myRepoFunc()"  ng-hide="!displayRepo">
+
+            <!--Repository information-->
+            <div ng-hide="displayRepo">
+                <p>Number of public Repositories: {{repoDetails.length}}</p>
+                <h2>Repository names</h2>
+                <ul ng-repeat="repoDetail in repoDetails">
+                    <li>{{repoDetail.name}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <!--error information-->
+        <div class="profile" ng-hide="displayError" >
+            <p>{{errorMessage}}</p>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
